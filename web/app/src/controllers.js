@@ -1,0 +1,1 @@
+angular.module("controller-manager",["user-ctrl"]);var users=angular.module("user-ctrl",[]);users.controller("UserCtrl",["$scope","$routeParams",function(r,e){r.userId=e.userId,r.isCollapsed=!1}]);
