@@ -1,5 +1,5 @@
 var registration = angular.module('registration-ctrl', []);
-registration.controller('RegistrationCtrl', function ($scope, $http) {
+registration.controller('RegistrationCtrl', function ($scope, $http, localStorageService) {
     $scope.user = {
         name: '',
         username: '',
@@ -20,7 +20,11 @@ registration.controller('RegistrationCtrl', function ($scope, $http) {
                 }
             }
         ).then(function successCallback(response) {
+            var authToken = btoa($scope.user.username + ':' + $scope.user.password);
+            localStorageService.set('auth-token', authToken);
+            localStorageService.set('user-id', response.data.id);
         }, function errorCallback(response) {
+            console.log(response)
         });
     }
 });

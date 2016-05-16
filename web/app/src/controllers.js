@@ -1,9 +1,33 @@
-angular.module('controller-manager', [
+angular.module('manager', [
+    'is-authorized-checker',
     'user-ctrl',
-    'registration-ctrl'
+    'registration-ctrl',
+    'header-ctrl'
 ]);
+var isAuthorizedChecker = angular.module('is-authorized-checker', []);
+isAuthorizedChecker.service('isAuthorizedChecker', function (localStorageService) {
+   return {
+       check: function () {
+           return localStorageService.get('auth-token');
+       }
+   }
+});
+
+var header = angular.module('header-ctrl', []);
+header.controller('HeaderCtrl', [
+    '$scope',
+    '$location',
+    'localStorageService',
+    'isAuthorizedChecker',
+    function ($scope, $location, localStorageService, isAuthorizedChecker) {
+        $scope.authorized = isAuthorizedChecker.check();
+
+        $scope.redirectToProfile = function () {
+            $location.path('/users/' + localStorageService.get('user-id'));
+        }
+    }]);
 var registration = angular.module('registration-ctrl', []);
-registration.controller('RegistrationCtrl', function ($scope, $http) {
+registration.controller('RegistrationCtrl', function ($scope, $http, localStorageService) {
     $scope.user = {
         name: '',
         username: '',
@@ -24,7 +48,11 @@ registration.controller('RegistrationCtrl', function ($scope, $http) {
                 }
             }
         ).then(function successCallback(response) {
+            var authToken = btoa($scope.user.username + ':' + $scope.user.password);
+            localStorageService.set('auth-token', authToken);
+            localStorageService.set('user-id', response.data.id);
         }, function errorCallback(response) {
+            console.log(response)
         });
     }
 });
