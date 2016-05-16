@@ -1726,7 +1726,7 @@ function bootstrap(element, modules, config) {
       //Encode angle brackets to prevent input from being sanitized to empty string #8683
       throw ngMinErr(
           'btstrpd',
-          "App already bootstrapped with this element '{0}'",
+          "app already bootstrapped with this element '{0}'",
           tag.replace(/</,'&lt;').replace(/>/,'&gt;'));
     }
 
@@ -23088,7 +23088,7 @@ function textInputType(scope, element, attr, ctrl, $sniffer, $browser) {
 function baseInputType(scope, element, attr, ctrl, $sniffer, $browser) {
   var type = lowercase(element[0].type);
 
-  // In composition mode, controllers are still inputing intermediate text buffer,
+  // In composition mode, users are still inputing intermediate text buffer,
   // hold the listener until composition is done.
   // More about composition events: https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent
   if (!$sniffer.android) {

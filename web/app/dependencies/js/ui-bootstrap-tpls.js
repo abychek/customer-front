@@ -4510,7 +4510,7 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.s
    * `options({})` allows global configuration of all tooltips in the
    * application.
    *
-   *   var app = angular.module( 'App', ['ui.bootstrap.tooltip'], function( $tooltipProvider ) {
+   *   var app = angular.module( 'app', ['ui.bootstrap.tooltip'], function( $tooltipProvider ) {
    *     // place tooltips left instead of top by default
    *     $tooltipProvider.options( { placement: 'left' } );
    *   });
@@ -6240,7 +6240,7 @@ angular.module('ui.bootstrap.timepicker', [])
 angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.debounce', 'ui.bootstrap.position'])
 
 /**
- * A helper service that can parse typeahead's syntax (string provided by controllers)
+ * A helper service that can parse typeahead's syntax (string provided by users)
  * Extracted to a separate service for ease of unit testing
  */
   .factory('uibTypeaheadParser', ['$parse', function($parse) {

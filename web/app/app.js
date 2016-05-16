@@ -1,17 +1,27 @@
-var phonecatApp = angular.module('customers', [
+var app = angular.module('customers', [
     'ngRoute',
     'ngAnimate',
+    'LocalStorageModule',
     'ui.bootstrap',
-    'controller-manager'
+    'manager'
 ]);
-phonecatApp.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider.
-        when('/users/:userId', {
+
+app.config(function (localStorageServiceProvider) {
+    localStorageServiceProvider
+        .setPrefix('flexer')
+        .setStorageType('sessionStorage')
+        .setNotify(true, true)
+});
+
+app.config(['$routeProvider', '$locationProvider',
+    function ($routeProvider, $locationProvider) {
+        $routeProvider.when('/users/:userId', {
             templateUrl: './app/templates/user.tmpl.html',
             controller: 'UserCtrl'
-        }).
-        otherwise({
+        }).when('/auth/registration', {
+            templateUrl: './app/templates/registration.tmpl.html',
+            controller: 'RegistrationCtrl'
+        }).otherwise({
             redirectTo: '/'
         });
     }]);
