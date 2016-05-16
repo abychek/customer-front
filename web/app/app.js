@@ -4,14 +4,15 @@ var phonecatApp = angular.module('customers', [
     'ui.bootstrap',
     'controller-manager'
 ]);
-phonecatApp.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider.
-        when('/users/:userId', {
+phonecatApp.config(['$routeProvider', '$locationProvider',
+    function ($routeProvider, $locationProvider) {
+        $routeProvider.when('/users/:userId', {
             templateUrl: './app/templates/user.tmpl.html',
             controller: 'UserCtrl'
-        }).
-        otherwise({
+        }).when('/auth/registration', {
+            templateUrl: './app/templates/registration.tmpl.html',
+            controller: 'RegistrationCtrl'
+        }).otherwise({
             redirectTo: '/'
         });
     }]);

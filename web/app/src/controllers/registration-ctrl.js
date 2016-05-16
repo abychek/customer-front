@@ -1,7 +1,3 @@
-angular.module('controller-manager', [
-    'user-ctrl',
-    'registration-ctrl'
-]);
 var registration = angular.module('registration-ctrl', []);
 registration.controller('RegistrationCtrl', function ($scope, $http) {
     $scope.user = {
@@ -28,9 +24,3 @@ registration.controller('RegistrationCtrl', function ($scope, $http) {
         });
     }
 });
-var users = angular.module('user-ctrl', []);
-
-users.controller('UserCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
-    $scope.userId = $routeParams.userId;
-    $scope.isCollapsed = false;
-}]);

@@ -1,3 +1,4 @@
 angular.module('controller-manager', [
-    'user-ctrl'
+    'user-ctrl',
+    'registration-ctrl'
 ]);
