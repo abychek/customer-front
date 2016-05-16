@@ -15,13 +15,18 @@ app.config(function (localStorageServiceProvider) {
 
 app.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
-        $routeProvider.when('/users/:userId', {
-            templateUrl: './app/templates/user.tmpl.html',
-            controller: 'UserCtrl'
-        }).when('/auth/registration', {
+        $routeProvider.when('/auth/registration', {
             templateUrl: './app/templates/registration.tmpl.html',
             controller: 'RegistrationCtrl'
+        }).when('/auth/login', {
+            templateUrl: './app/templates/authorization.tmpl.html',
+            controller: 'AuthorizationCtrl'
         }).otherwise({
             redirectTo: '/'
         });
+    }])
+    .run(['$rootScope', 'isAuthorizedChecker', function ($rootScope, isAuthorizedChecker) {
+        $rootScope.$on('$routeChangeSuccess', function () {
+            isAuthorizedChecker.check();
+        })
     }]);

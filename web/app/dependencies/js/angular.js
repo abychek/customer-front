@@ -16714,7 +16714,7 @@ function $RootScopeProvider() {
        *    and the `oldValues` array contains the previous values of the `watchExpressions`, with the indexes matching
        *    those of `watchExpression`
        *    The `scope` refers to the current scope.
-       * @returns {function()} Returns a de-registration function for all listeners.
+       * @returns {function()} Returns a de-authorization function for all listeners.
        */
       $watchGroup: function(watchExpressions, listener) {
         var oldValues = new Array(watchExpressions.length);
@@ -16827,8 +16827,8 @@ function $RootScopeProvider() {
        *      `listener` function declares two or more arguments.
        *    - The `scope` argument refers to the current scope.
        *
-       * @returns {function()} Returns a de-registration function for this listener. When the
-       *    de-registration function is executed, the internal watch operation is terminated.
+       * @returns {function()} Returns a de-authorization function for this listener. When the
+       *    de-authorization function is executed, the internal watch operation is terminated.
        */
       $watchCollection: function(obj, listener) {
         $watchCollectionInterceptor.$stateful = true;
