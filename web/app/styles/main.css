@@ -9,3 +9,11 @@
 .background-light-grey {
     background-color: lightgrey;
 }
+
+.border-right-cornflowerblue {
+    border-right: solid cornflowerblue;
+}
+
+.border-top-red {
+    border-top: solid red;
+}

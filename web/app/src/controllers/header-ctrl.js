@@ -7,6 +7,6 @@ header.controller('HeaderCtrl', [
     'isAuthorizedChecker',
     function ($scope, $rootScope, $location, localStorageService, isAuthorizedChecker) {
         $scope.redirectToProfile = function () {
-            $location.path('/users/' + localStorageService.get('user-id'));
+            $location.path('/profile');
         }
     }]);
