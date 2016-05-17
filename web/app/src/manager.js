@@ -1,6 +1,7 @@
 angular.module('manager', [
     'is-authorized-checker',
-    'user-ctrl',
+    'authorization-service',
     'registration-ctrl',
+    'authorization-ctrl',
     'header-ctrl'
 ]);
