@@ -3,5 +3,6 @@ angular.module('manager', [
     'authorization-service',
     'registration-ctrl',
     'authorization-ctrl',
-    'header-ctrl'
+    'header-ctrl',
+    'profile-ctrl'
 ]);

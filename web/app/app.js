@@ -21,6 +21,9 @@ app.config(['$routeProvider', '$locationProvider',
         }).when('/auth/login', {
             templateUrl: './app/templates/authorization.tmpl.html',
             controller: 'AuthorizationCtrl'
+        }).when('/profile', {
+            templateUrl: './app/templates/profile.tmpl.html',
+            controller: 'ProfileCtrl'
         }).otherwise({
             redirectTo: '/'
         });
