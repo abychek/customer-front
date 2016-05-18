@@ -1,0 +1,18 @@
+<div class="container" ng-controller="CardCtrl">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-lg-12">
+            <h4>{{ card.title }}</h4>
+        </div>
+        <div class="col-lg-12">
+            <p>&nbsp;{{ card.description }}</p>
+        </div>
+        <div class="col-lg-12">
+            <uib-progressbar max="card.needed_count" value="card.actual_count">
+                <span style="color:white; white-space:nowrap;">{{ card.actual_count }} / {{ card.needed_count }}</span>
+            </uib-progressbar>
+        </div>
+        <div class="col-lg-12 text-center">
+            <img src="{{card.qr_code}}">
+        </div>
+    </div>
+</div>

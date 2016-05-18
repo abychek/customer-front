@@ -24,6 +24,9 @@ app.config(['$routeProvider', '$locationProvider',
         }).when('/profile', {
             templateUrl: './app/templates/profile.tmpl.html',
             controller: 'ProfileCtrl'
+        }).when('/profile/cards/:id', {
+            templateUrl: './app/templates/card.tmpl.html',
+            controller: 'CardCtrl'
         }).otherwise({
             redirectTo: '/'
         });
