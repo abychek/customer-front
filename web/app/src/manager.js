@@ -4,5 +4,6 @@ angular.module('manager', [
     'registration-ctrl',
     'authorization-ctrl',
     'header-ctrl',
-    'profile-ctrl'
+    'profile-ctrl',
+    'card-ctrl'
 ]);
