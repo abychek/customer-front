@@ -5,5 +5,6 @@ angular.module('manager', [
     'authorization-ctrl',
     'header-ctrl',
     'profile-ctrl',
-    'card-ctrl'
+    'card-ctrl',
+    'establishments-list-ctrl'
 ]);

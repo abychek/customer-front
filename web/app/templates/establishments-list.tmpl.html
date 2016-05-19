@@ -1,0 +1,18 @@
+<div class="container" ng-controller="EstablishmentsCtrl">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-lg-12" ng-hide="establishments.length > 0">
+            <p class="alert-info">No establishments searched.</p>
+        </div>
+
+        <table class="table">
+            <tr class="row" ng-repeat="establishment in establishments">
+                <td class="col-lg-4">
+                    <a href="/#/">{{ establishment.title }}</a>
+                </td>
+                <td class="col-lg-8">
+                    <p>{{ establishment.description }}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
