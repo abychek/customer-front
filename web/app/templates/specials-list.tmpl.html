@@ -1,0 +1,11 @@
+<div class="container" ng-controller="SpecialsCtrl">
+    <div class="col-lg-8 col-lg-offset-2">
+        <table class="table">
+            <tr ng-repeat="special in specials">
+                <td><a ng-href="/#/">{{ special.title }}</a></td>
+                <td>{{ special.description }}</td>
+                <td>{{ special.start_date }} - {{ special.end_date }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
