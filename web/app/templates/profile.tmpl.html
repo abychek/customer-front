@@ -50,7 +50,7 @@
             <p class="alert-info">You doesn't have any cards.</p>
         </div>
         <div class="col-lg-12 border-top-red" ng-repeat="card in user.cards">
-            <h4><a href="/#/profile/cards/{{card.id}}">{{ card.title }}</a></h4>
+            <h4><a ng-href="/#/profile/cards/{{card.id}}">{{ card.title }}</a></h4>
             <p>{{ card.description }}</p>
         </div>
     </div>

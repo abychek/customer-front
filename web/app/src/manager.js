@@ -6,5 +6,6 @@ angular.module('manager', [
     'header-ctrl',
     'profile-ctrl',
     'card-ctrl',
-    'establishments-list-ctrl'
+    'establishments-list-ctrl',
+    'specials-ctrl'
 ]);

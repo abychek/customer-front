@@ -7,7 +7,7 @@
         <table class="table">
             <tr class="row" ng-repeat="establishment in establishments">
                 <td class="col-lg-4">
-                    <a href="/#/">{{ establishment.title }}</a>
+                    <a ng-href="/#/establishments/{{ establishment.id }}/specials">{{ establishment.title }}</a>
                 </td>
                 <td class="col-lg-8">
                     <p>{{ establishment.description }}</p>
