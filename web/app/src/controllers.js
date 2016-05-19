@@ -5,7 +5,8 @@ angular.module('manager', [
     'authorization-ctrl',
     'header-ctrl',
     'profile-ctrl',
-    'card-ctrl'
+    'card-ctrl',
+    'establishments-list-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
 authorizationService.service('authorizationService', function (localStorageService, $http) {
@@ -88,6 +89,22 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
         console.log($scope.card);
     }, function errorCallback(response) {
         console.log(response)
+    });
+});
+var establishments = angular.module('establishments-list-ctrl', []);
+establishments.controller('EstablishmentsCtrl', function ($scope, $http) {
+    $scope.establishments = [];
+    $http.get(
+        '/api/customer-api/establishments', 
+        {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        }
+    ).then(function successCallback(response) {
+        $scope.establishments = response.data;
+    }, function errorCallback(response) {
+        console.log('Get cards error.')
     });
 });
 var header = angular.module('header-ctrl', []);
