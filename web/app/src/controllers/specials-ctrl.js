@@ -1,5 +1,5 @@
 var specials = angular.module('specials-ctrl', []);
-specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams) {
+specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams, $location) {
     $scope.specials = [];
     $http.get(
         '/api/customer-api/establishments/' + $routeParams.id + '/specials',
@@ -13,4 +13,7 @@ specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams) {
     }, function error(error) {
         console.log(error);
     });
+    $scope.redirect = function (id) {
+        $location.path('/specials/' + id);
+    };
 });

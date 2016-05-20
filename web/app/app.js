@@ -33,6 +33,9 @@ app.config(['$routeProvider', '$locationProvider',
         }).when('/establishments/:id/specials', {
             templateUrl: './app/templates/specials-list.tmpl.html',
             controller: 'SpecialsCtrl'
+        }).when('/specials/:id', {
+            templateUrl: './app/templates/concrete-special.tmpl.html',
+            controller: 'ConcreteSpecialsCtrl'
         }).otherwise({
             redirectTo: '/'
         });

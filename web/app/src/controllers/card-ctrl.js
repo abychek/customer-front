@@ -22,7 +22,6 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
         $scope.card.needed_count = response.data.needed_count;
         $scope.card.actual_count = response.data.actual_count;
         $scope.card.qr_code = response.data.qr_code;
-        console.log($scope.card);
     }, function errorCallback(response) {
         console.log(response)
     });
