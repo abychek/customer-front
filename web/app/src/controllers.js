@@ -75,7 +75,7 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
         qr_code: ''
     };
     $http.get(
-        '/api/customer-api/users/' + localStorageService.get('user-id') + '/cards/' + $routeParams.id,
+        '/api/users/' + localStorageService.get('user-id') + '/cards/' + $routeParams.id,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -103,7 +103,7 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
         count: ''
     };
     $http.get(
-        '/api/customer-api/specials/' + $routeParams.id,
+        '/api/specials/' + $routeParams.id,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -122,7 +122,7 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
     $scope.getIn = function () {
         console.log($scope.special);
         $http.post(
-            '/api/customer-api/cards',
+            '/api/cards',
             $.param({
                 id: $scope.special.id
             }),
@@ -142,7 +142,7 @@ var establishments = angular.module('establishments-list-ctrl', []);
 establishments.controller('EstablishmentsCtrl', function ($scope, $http) {
     $scope.establishments = [];
     $http.get(
-        '/api/customer-api/establishments', 
+        '/api/establishments', 
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -175,7 +175,7 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         cards: []
     };
     $http.get(
-        '/api/customer-api/users/' + localStorageService.get('user-id'),
+        '/api/users/' + localStorageService.get('user-id'),
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -190,7 +190,7 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         console.log('Get user error.')
     }).then(function getCards() {
         $http.get(
-            '/api/customer-api/users/'+ id +'/cards',
+            '/api/users/'+ id +'/cards',
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -240,7 +240,7 @@ var specials = angular.module('specials-ctrl', []);
 specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams, $location) {
     $scope.specials = [];
     $http.get(
-        '/api/customer-api/establishments/' + $routeParams.id + '/specials',
+        '/api/establishments/' + $routeParams.id + '/specials',
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

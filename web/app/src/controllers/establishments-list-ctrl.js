@@ -2,7 +2,7 @@ var establishments = angular.module('establishments-list-ctrl', []);
 establishments.controller('EstablishmentsCtrl', function ($scope, $http) {
     $scope.establishments = [];
     $http.get(
-        '/api/customer-api/establishments', 
+        '/api/establishments', 
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
