@@ -7,7 +7,8 @@ angular.module('manager', [
     'profile-ctrl',
     'card-ctrl',
     'establishments-list-ctrl',
-    'specials-ctrl'
+    'specials-ctrl',
+    'concrete-special-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
 authorizationService.service('authorizationService', function (localStorageService, $http) {
@@ -87,10 +88,37 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
         $scope.card.needed_count = response.data.needed_count;
         $scope.card.actual_count = response.data.actual_count;
         $scope.card.qr_code = response.data.qr_code;
-        console.log($scope.card);
     }, function errorCallback(response) {
         console.log(response)
     });
+});
+var concreteSpecial = angular.module('concrete-special-ctrl', []);
+concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $routeParams) {
+    $scope.special = {
+        id: '',
+        title: '',
+        description: '',
+        start_date: '',
+        end_date: '',
+        count: ''
+    };
+    $http.get(
+        '/api/customer-api/specials/' + $routeParams.id,
+        {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        }
+    ).then(function success(response) {
+        $scope.special.id = response.data.id;
+        $scope.special.title = response.data.title;
+        $scope.special.description = response.data.description;
+        $scope.special.start_date = response.data.start_date;
+        $scope.special.end_date = response.data.end_date;
+        $scope.special.count = response.data.count;
+    }, function error(error) {
+        console.log(error);
+    })
 });
 var establishments = angular.module('establishments-list-ctrl', []);
 establishments.controller('EstablishmentsCtrl', function ($scope, $http) {
@@ -191,7 +219,7 @@ registration.controller('RegistrationCtrl', [
         }
     }]);
 var specials = angular.module('specials-ctrl', []);
-specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams) {
+specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams, $location) {
     $scope.specials = [];
     $http.get(
         '/api/customer-api/establishments/' + $routeParams.id + '/specials',
@@ -205,4 +233,7 @@ specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams) {
     }, function error(error) {
         console.log(error);
     });
+    $scope.redirect = function (id) {
+        $location.path('/specials/' + id);
+    };
 });

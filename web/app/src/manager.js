@@ -7,5 +7,6 @@ angular.module('manager', [
     'profile-ctrl',
     'card-ctrl',
     'establishments-list-ctrl',
-    'specials-ctrl'
+    'specials-ctrl',
+    'concrete-special-ctrl'
 ]);
