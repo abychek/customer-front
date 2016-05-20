@@ -9,7 +9,7 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
         count: ''
     };
     $http.get(
-        '/api/customer-api/specials/' + $routeParams.id,
+        '/api/specials/' + $routeParams.id,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -28,7 +28,7 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
     $scope.getIn = function () {
         console.log($scope.special);
         $http.post(
-            '/api/customer-api/cards',
+            '/api/cards',
             $.param({
                 id: $scope.special.id
             }),
