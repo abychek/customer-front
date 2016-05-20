@@ -26,11 +26,12 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
         console.log(error);
     });
     $scope.getIn = function () {
+        console.log($scope.special);
         $http.post(
-            '/api/customer-api/cards/',
-            {
+            '/api/customer-api/cards',
+            $.param({
                 id: $scope.special.id
-            },
+            }),
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

@@ -118,7 +118,25 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
         $scope.special.count = response.data.count;
     }, function error(error) {
         console.log(error);
-    })
+    });
+    $scope.getIn = function () {
+        console.log($scope.special);
+        $http.post(
+            '/api/customer-api/cards',
+            $.param({
+                id: $scope.special.id
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            console.log('OK');
+        }, function error(error) {
+            console.log(error);
+        });
+    };
 });
 var establishments = angular.module('establishments-list-ctrl', []);
 establishments.controller('EstablishmentsCtrl', function ($scope, $http) {
