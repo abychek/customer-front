@@ -2,7 +2,7 @@ var specials = angular.module('specials-ctrl', []);
 specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams, $location) {
     $scope.specials = [];
     $http.get(
-        '/api/establishments/' + $routeParams.id + '/specials',
+        '/api/customer-api/establishments/' + $routeParams.id + '/specials',
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

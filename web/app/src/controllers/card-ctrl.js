@@ -9,7 +9,7 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
         qr_code: ''
     };
     $http.get(
-        '/api/users/' + localStorageService.get('user-id') + '/cards/' + $routeParams.id,
+        '/api/customer-api/users/' + localStorageService.get('user-id') + '/cards/' + $routeParams.id,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

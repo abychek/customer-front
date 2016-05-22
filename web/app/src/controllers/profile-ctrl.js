@@ -7,7 +7,7 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         cards: []
     };
     $http.get(
-        '/api/users/' + localStorageService.get('user-id'),
+        '/api/customer-api/users/' + localStorageService.get('user-id'),
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -22,7 +22,7 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         console.log('Get user error.')
     }).then(function getCards() {
         $http.get(
-            '/api/users/'+ id +'/cards',
+            '/api/customer-api/users/'+ id +'/cards',
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
