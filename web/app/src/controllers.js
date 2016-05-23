@@ -11,11 +11,12 @@ angular.module('manager', [
     'concrete-special-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
-authorizationService.service('authorizationService', function (localStorageService, $http) {
+authorizationService.service('authorizationService', function (localStorageService, $http, $rootScope) {
     return {
-        login: function (id, token) {
+        login: function (id, token, isEmployer) {
             localStorageService.set('auth-token', token);
             localStorageService.set('user-id', id);
+            $rootScope.isEmployer = isEmployer;
             $http.defaults.headers.common.Authorization = 'Basic ' + localStorageService.get('auth-token');
         }
     }
@@ -57,7 +58,7 @@ authorization.controller('AuthorizationCtrl', [
                 }
             ).then(function successCallback(response) {
                 var authToken = btoa($scope.user.username + ':' + $scope.user.password);
-                authorizationService.login(response.data.id, authToken);
+                authorizationService.login(response.data.id, authToken, response.data.is_employer);
                 $location.path('/');
             }, function errorCallback(response) {
                 console.log(response)
@@ -173,7 +174,8 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         name: '',
         username: '',
         cards: [],
-        establishments: []
+        establishments: [],
+        isEmployer: true
     };
     $http.get(
         '/api/customer-api/users/' + localStorageService.get('user-id'),
@@ -213,7 +215,11 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         ).then(function success(response) {
             $scope.user.establishments = response.data;
         }, function error(error) {
-            console.log(error);
+            if(error.status === 403) {
+                $scope.user.isEmployer = false;
+            } else {
+                console.log(error);
+            }
         })
     });
 });
