@@ -22,7 +22,7 @@ authorization.controller('AuthorizationCtrl', [
                 }
             ).then(function successCallback(response) {
                 var authToken = btoa($scope.user.username + ':' + $scope.user.password);
-                authorizationService.login(response.data.id, authToken);
+                authorizationService.login(response.data.id, authToken, response.data.is_employer);
                 $location.path('/');
             }, function errorCallback(response) {
                 console.log(response)

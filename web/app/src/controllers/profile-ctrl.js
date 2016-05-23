@@ -5,7 +5,8 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         name: '',
         username: '',
         cards: [],
-        establishments: []
+        establishments: [],
+        isEmployer: true
     };
     $http.get(
         '/api/customer-api/users/' + localStorageService.get('user-id'),
@@ -45,7 +46,11 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         ).then(function success(response) {
             $scope.user.establishments = response.data;
         }, function error(error) {
-            console.log(error);
+            if(error.status === 403) {
+                $scope.user.isEmployer = false;
+            } else {
+                console.log(error);
+            }
         })
     });
 });
