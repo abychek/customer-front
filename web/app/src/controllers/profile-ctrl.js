@@ -4,7 +4,8 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
     $scope.user = {
         name: '',
         username: '',
-        cards: []
+        cards: [],
+        establishments: []
     };
     $http.get(
         '/api/customer-api/users/' + localStorageService.get('user-id'),
@@ -17,12 +18,12 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         id = response.data.id;
         $scope.user.name = response.data.name;
         $scope.user.username = response.data.username
-    
+
     }, function errorCallback(response) {
         console.log('Get user error.')
     }).then(function getCards() {
         $http.get(
-            '/api/customer-api/users/'+ id +'/cards',
+            '/api/customer-api/users/' + id + '/cards',
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -31,7 +32,20 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         ).then(function successCallback(response) {
             $scope.user.cards = response.data;
         }, function errorCallback(response) {
-            console.log('Get cards error.')
+            console.log('Get cards error.');
         });
+    }).then(function getEstablishments() {
+        $http.get(
+            '/api/employer-api/users/' + id + '/establishments',
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            $scope.user.establishments = response.data;
+        }, function error(error) {
+            console.log(error);
+        })
     });
 });

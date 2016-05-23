@@ -75,7 +75,7 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
         qr_code: ''
     };
     $http.get(
-        '/api/users/' + localStorageService.get('user-id') + '/cards/' + $routeParams.id,
+        '/api/customer-api/users/' + localStorageService.get('user-id') + '/cards/' + $routeParams.id,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -103,7 +103,7 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
         count: ''
     };
     $http.get(
-        '/api/specials/' + $routeParams.id,
+        '/api/customer-api/specials/' + $routeParams.id,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -122,7 +122,7 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
     $scope.getIn = function () {
         console.log($scope.special);
         $http.post(
-            '/api/cards',
+            '/api/customer-api/cards',
             $.param({
                 id: $scope.special.id
             }),
@@ -142,7 +142,7 @@ var establishments = angular.module('establishments-list-ctrl', []);
 establishments.controller('EstablishmentsCtrl', function ($scope, $http) {
     $scope.establishments = [];
     $http.get(
-        '/api/establishments', 
+        '/api/customer-api/establishments', 
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -172,10 +172,11 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
     $scope.user = {
         name: '',
         username: '',
-        cards: []
+        cards: [],
+        establishments: []
     };
     $http.get(
-        '/api/users/' + localStorageService.get('user-id'),
+        '/api/customer-api/users/' + localStorageService.get('user-id'),
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -185,12 +186,12 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         id = response.data.id;
         $scope.user.name = response.data.name;
         $scope.user.username = response.data.username
-    
+
     }, function errorCallback(response) {
         console.log('Get user error.')
     }).then(function getCards() {
         $http.get(
-            '/api/users/'+ id +'/cards',
+            '/api/customer-api/users/' + id + '/cards',
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -199,8 +200,21 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         ).then(function successCallback(response) {
             $scope.user.cards = response.data;
         }, function errorCallback(response) {
-            console.log('Get cards error.')
+            console.log('Get cards error.');
         });
+    }).then(function getEstablishments() {
+        $http.get(
+            '/api/employer-api/users/' + id + '/establishments',
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            $scope.user.establishments = response.data;
+        }, function error(error) {
+            console.log(error);
+        })
     });
 });
 var registration = angular.module('registration-ctrl', []);
@@ -240,7 +254,7 @@ var specials = angular.module('specials-ctrl', []);
 specials.controller('SpecialsCtrl', function ($scope, $http, $routeParams, $location) {
     $scope.specials = [];
     $http.get(
-        '/api/establishments/' + $routeParams.id + '/specials',
+        '/api/customer-api/establishments/' + $routeParams.id + '/specials',
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

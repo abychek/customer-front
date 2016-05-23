@@ -41,6 +41,17 @@
                 </div>
             </div>
         </form>
+        <div class="col-lg-12">
+            <div class="text-center">
+                <h3>Establishments</h3>
+            </div>
+            <div ng-hide="user.establishments.length > 0">
+                <p class="alert-info">You hadn't any establishment</p>
+            </div>
+            <div ng-repeat="establishment in user.establishments" class="border-top-red">
+                <a ng-href="/#/establishments/{{establishment.id}}">{{ establishment.title }}</a>
+            </div>
+        </div>
     </div>
     <div class="col-lg-4">
         <div class="text-center">
