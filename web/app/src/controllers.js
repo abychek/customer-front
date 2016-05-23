@@ -9,7 +9,8 @@ angular.module('manager', [
     'establishments-list-ctrl',
     'specials-ctrl',
     'concrete-special-ctrl',
-    'concrete-establishment-ctrl'
+    'concrete-establishment-ctrl',
+    'register-establishment-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
 authorizationService.service('authorizationService', function (localStorageService, $http) {
@@ -99,7 +100,9 @@ concreteEstablishmentCtrl.controller('ConcreteEstablishmentsCtrl', function ($sc
         id: '',
         title: '',
         description: '',
-        specials: []
+        specials: [],
+        departments: [],
+        workers: []
     };
     $http.get(
         '/api/employer-api/establishments/' + $routeParams.id,
@@ -242,7 +245,7 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         ).then(function successCallback(response) {
             $scope.user.cards = response.data;
         }, function errorCallback(response) {
-            console.log('Get cards error.');
+            console.log(response);
         });
     }).then(function getEstablishments() {
         $http.get(
@@ -262,6 +265,35 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
             }
         })
     });
+});
+var registerEstablishment = angular.module('register-establishment-ctrl', []);
+registerEstablishment.controller('RegisterEstablishmentCtrl', function ($scope, $http, $location) {
+    $scope.establishment = {
+        title: '',
+        description: ''
+    };
+    $scope.register = function () {
+        $http.post(
+            '/api/employer-api/establishments',
+            $.param({
+                title: $scope.establishment.title,
+                description: $scope.establishment.description
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            $location.path('/profile');
+        }, function error(error) {
+            if(error.status === 403) {
+                $location.path('/');
+            } else {
+                console.log(error);
+            }
+        });
+    }
 });
 var registration = angular.module('registration-ctrl', []);
 registration.controller('RegistrationCtrl', [
