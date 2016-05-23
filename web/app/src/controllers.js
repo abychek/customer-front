@@ -8,15 +8,15 @@ angular.module('manager', [
     'card-ctrl',
     'establishments-list-ctrl',
     'specials-ctrl',
-    'concrete-special-ctrl'
+    'concrete-special-ctrl',
+    'concrete-establishment-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
-authorizationService.service('authorizationService', function (localStorageService, $http, $rootScope) {
+authorizationService.service('authorizationService', function (localStorageService, $http) {
     return {
         login: function (id, token, isEmployer) {
             localStorageService.set('auth-token', token);
             localStorageService.set('user-id', id);
-            $rootScope.isEmployer = isEmployer;
             $http.defaults.headers.common.Authorization = 'Basic ' + localStorageService.get('auth-token');
         }
     }
@@ -91,6 +91,46 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
         $scope.card.qr_code = response.data.qr_code;
     }, function errorCallback(response) {
         console.log(response)
+    });
+});
+var concreteEstablishmentCtrl = angular.module('concrete-establishment-ctrl', []);
+concreteEstablishmentCtrl.controller('ConcreteEstablishmentsCtrl', function ($scope, $routeParams, $http, $location) {
+    $scope.establishment = {
+        id: '',
+        title: '',
+        description: '',
+        specials: []
+    };
+    $http.get(
+        '/api/employer-api/establishments/' + $routeParams.id,
+        {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        }
+    ).then(function success(response) {
+        $scope.establishment.id = response.data.id;
+        $scope.establishment.title = response.data.title;
+        $scope.establishment.description = response.data.description;
+    }, function error(error) {
+        if (error.status === 403) {
+            $location.path('/');
+        } else {
+            console.log(error);
+        }
+    }).then(function getSpecials() {
+        $http.get(
+            '/api/customer-api/establishments/' + $routeParams.id + '/specials',
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            $scope.establishment.specials = response.data;     
+        }, function error(error) {
+            console.log(error);
+        });
     });
 });
 var concreteSpecial = angular.module('concrete-special-ctrl', []);

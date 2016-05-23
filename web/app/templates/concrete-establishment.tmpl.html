@@ -1,0 +1,45 @@
+<div class="container" ng-controller="ConcreteEstablishmentsCtrl">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div>
+            <h4>{{ establishment.title }}</h4>
+        </div>
+        <div class="col-lg-10 col-lg-offset-1">
+            <p>&nbsp;{{ establishment.description }}</p>
+        </div>
+        <div class="col-lg-12 border-top-red">
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <h4>Specials</h4>
+                </div>
+                <div ng-hide="establishment.specials.length > 0">
+                    <p class="alert-info">You hadn't any specials.</p>
+                </div>
+                <div class="text-center" ng-repeat="special in establishment.specials">
+                    <a ng-href="/#/specials/{{special.id}}">{{ special.title }}</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <h4>Departments</h4>
+                </div>
+                <div ng-hide="establishment.departments.length > 0">
+                    <p class="alert-info">You hadn't any departments.</p>
+                </div>
+                <div class="text-center" ng-repeat="department in establishment.departments">
+                    <a ng-href="/#/specials/{{department.id}}">{{ department.address }}</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <h4>Workers</h4>
+                </div>
+                <div ng-hide="establishment.workers.length > 0">
+                    <p class="alert-info">You hadn't any workers.</p>
+                </div>
+                <div class="text-center" ng-repeat="worker in establishment.workers">
+                    <a ng-href="/#/specials/{{worker.id}}">{{ worker.name }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
