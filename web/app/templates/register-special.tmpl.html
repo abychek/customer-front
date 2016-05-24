@@ -1,0 +1,47 @@
+<div class="container text-center" ng-controller="RegisterSpecialCtrl">
+    <div class="col-lg-8 col-lg-offset-2">
+        <form novalidate class="form-horizontal">
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">Title: </label>
+                <div class="col-sm-10">
+                    <input ng-model="special.title" id="title" class="form-control" type="text"
+                           placeholder="Some title ..." required
+                           min="4"
+                           max="40">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-sm-2 control-label">Descriptions: </label>
+                <div class="col-sm-10">
+                    <input ng-model="special.description" id="description" class="form-control" type="text"
+                           placeholder="Some description ..."
+                           required min="10"
+                           max="255">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <h4>Start: </h4>
+                    <uib-datepicker ng-model="special.start_date"
+                                    class="well well-sm"
+                                    datepicker-options="options">
+                    </uib-datepicker>
+                </div>
+                <div class="col-sm-6">
+                    <h4>End: </h4>
+                    <uib-datepicker ng-model="special.end_date"
+                                    class="well well-sm"
+                                    datepicker-options="options">
+                    </uib-datepicker>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="count" class="col-sm-2 control-label">Count: </label>
+                <div class="col-sm-10">
+                    <input ng-model="special.count" id="count" class="form-control" type="number">
+                </div>
+            </div>
+            <button ng-click="register()">Register</button>
+        </form>
+    </div>
+</div>

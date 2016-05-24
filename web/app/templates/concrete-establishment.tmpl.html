@@ -9,7 +9,12 @@
         <div class="col-lg-12 border-top-red">
             <div class="col-lg-4">
                 <div class="text-center">
-                    <h4>Specials</h4>
+                    <h4>
+                        Specials
+                        <button ng-click="addSpecialPage(establishment.id)" class="btn btn-sm btn-default">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </h4>
                 </div>
                 <div ng-hide="establishment.specials.length > 0">
                     <p class="alert-info">You hadn't any specials.</p>
@@ -20,7 +25,12 @@
             </div>
             <div class="col-lg-4">
                 <div class="text-center">
-                    <h4>Departments</h4>
+                    <h4>
+                        Departments
+                        <button ng-click="addDepartmentPage(establishment.id)" class="btn btn-sm btn-default">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </h4>
                 </div>
                 <div ng-hide="establishment.departments.length > 0">
                     <p class="alert-info">You hadn't any departments.</p>
@@ -31,7 +41,12 @@
             </div>
             <div class="col-lg-4">
                 <div class="text-center">
-                    <h4>Workers</h4>
+                    <h4>
+                        Workers
+                        <button ng-click="addWorkerPage(establishment.id)" class="btn btn-sm btn-default">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </h4>
                 </div>
                 <div ng-hide="establishment.workers.length > 0">
                     <p class="alert-info">You hadn't any workers.</p>

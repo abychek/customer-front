@@ -10,7 +10,8 @@ angular.module('manager', [
     'specials-ctrl',
     'concrete-special-ctrl',
     'concrete-establishment-ctrl',
-    'register-establishment-ctrl'
+    'register-establishment-ctrl',
+    'register-special-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
 authorizationService.service('authorizationService', function (localStorageService, $http) {
@@ -95,47 +96,53 @@ card.controller('CardCtrl', function ($scope, $http, $routeParams, localStorageS
     });
 });
 var concreteEstablishmentCtrl = angular.module('concrete-establishment-ctrl', []);
-concreteEstablishmentCtrl.controller('ConcreteEstablishmentsCtrl', function ($scope, $routeParams, $http, $location) {
-    $scope.establishment = {
-        id: '',
-        title: '',
-        description: '',
-        specials: [],
-        departments: [],
-        workers: []
-    };
-    $http.get(
-        '/api/employer-api/establishments/' + $routeParams.id,
-        {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-            }
-        }
-    ).then(function success(response) {
-        $scope.establishment.id = response.data.id;
-        $scope.establishment.title = response.data.title;
-        $scope.establishment.description = response.data.description;
-    }, function error(error) {
-        if (error.status === 403) {
-            $location.path('/');
-        } else {
-            console.log(error);
-        }
-    }).then(function getSpecials() {
+concreteEstablishmentCtrl.controller(
+    'ConcreteEstablishmentsCtrl',
+    function ($scope, $routeParams, $http, $location, localStorageService) {
+        $scope.establishment = {
+            id: '',
+            title: '',
+            description: '',
+            specials: [],
+            departments: [],
+            workers: []
+        };
         $http.get(
-            '/api/customer-api/establishments/' + $routeParams.id + '/specials',
+            '/api/employer-api/establishments/' + $routeParams.id,
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
                 }
             }
         ).then(function success(response) {
-            $scope.establishment.specials = response.data;     
+            $scope.establishment.id = response.data.id;
+            $scope.establishment.title = response.data.title;
+            $scope.establishment.description = response.data.description;
         }, function error(error) {
-            console.log(error);
+            if (error.status === 403) {
+                $location.path('/');
+            } else {
+                console.log(error);
+            }
+        }).then(function getSpecials() {
+            $http.get(
+                '/api/customer-api/establishments/' + $routeParams.id + '/specials',
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                    }
+                }
+            ).then(function success(response) {
+                $scope.establishment.specials = response.data;
+            }, function error(error) {
+                console.log(error);
+            });
         });
+        $scope.addSpecialPage = function (id) {
+            localStorageService.set('establishment-id', id);
+            $location.path('/register/special')
+        }
     });
-});
 var concreteSpecial = angular.module('concrete-special-ctrl', []);
 concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $routeParams) {
     $scope.special = {
@@ -294,6 +301,45 @@ registerEstablishment.controller('RegisterEstablishmentCtrl', function ($scope, 
             }
         });
     }
+});
+var registerSpecialCtrl = angular.module('register-special-ctrl', []);
+registerSpecialCtrl.controller('RegisterSpecialCtrl', function ($scope, $http, $location, localStorageService) {
+    $scope.special = {
+        title: '',
+        description: '',
+        start_date: new Date(),
+        end_date: new Date(),
+        count: ''
+    };
+    var establishmentId = localStorageService.get('establishment-id');
+    $scope.register = function () {
+        var start_date = $scope.special.start_date,
+            end_date = $scope.special.end_date;
+        $http.post(
+            '/api/employer-api/establishments/' + establishmentId + '/specials',
+            $.param({
+                title: $scope.special.title,
+                description: $scope.special.description,
+                start_date: start_date.getDate() + '.' + start_date.getMonth() + '.' + start_date.getFullYear(),
+                end_date: end_date.getDate() + '.' + end_date.getMonth() + '.' + end_date.getFullYear(),
+                count: $scope.special.count
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            localStorageService.remove('establishment-id');
+            $location.path('/establishments/' + establishmentId);
+        }, function error(error) {
+            if (error.status === 403) {
+                $location.path('/');
+            } else {
+                console.log(error);
+            }
+        })
+    };
 });
 var registration = angular.module('registration-ctrl', []);
 registration.controller('RegistrationCtrl', [
