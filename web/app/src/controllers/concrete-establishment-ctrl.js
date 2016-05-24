@@ -42,7 +42,7 @@ concreteEstablishmentCtrl.controller(
             });
         }).then(function getWorkers() {
             $http.get(
-                '/api/customer-api/establishments/' + $routeParams.id + '/workers',
+                '/api/employer-api/establishments/' + $routeParams.id + '/workers',
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

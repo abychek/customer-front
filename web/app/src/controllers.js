@@ -137,6 +137,19 @@ concreteEstablishmentCtrl.controller(
             }, function error(error) {
                 console.log(error);
             });
+        }).then(function getWorkers() {
+            $http.get(
+                '/api/employer-api/establishments/' + $routeParams.id + '/workers',
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                    }
+                }
+            ).then(function success(response) {
+                $scope.establishment.workers = response.data;
+            }, function error(error) {
+                console.log(error);
+            });
         });
         $scope.addSpecialPage = function (id) {
             localStorageService.set('establishment-id', id);
