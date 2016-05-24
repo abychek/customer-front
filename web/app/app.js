@@ -39,6 +39,9 @@ app.config(['$routeProvider', '$locationProvider',
         }).when('/specials/:id', {
             templateUrl: './app/templates/concrete-special.tmpl.html',
             controller: 'ConcreteSpecialsCtrl'
+        }).when('/register/establishment', {
+            templateUrl: './app/templates/register-establishment.tmpl.html',
+            controller: 'RegisterEstablishmentCtrl'
         }).otherwise({
             redirectTo: '/'
         });

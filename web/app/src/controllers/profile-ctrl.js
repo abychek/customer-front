@@ -33,7 +33,7 @@ profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) 
         ).then(function successCallback(response) {
             $scope.user.cards = response.data;
         }, function errorCallback(response) {
-            console.log('Get cards error.');
+            console.log(response);
         });
     }).then(function getEstablishments() {
         $http.get(

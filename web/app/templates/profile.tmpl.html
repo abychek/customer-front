@@ -43,7 +43,12 @@
         </form>
         <div class="col-lg-12" ng-show="user.isEmployer">
             <div class="text-center">
-                <h3>Establishments</h3>
+                <h3>
+                    Establishments
+                    <a ng-href="/#/register/establishment" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </h3>
             </div>
             <div ng-hide="user.establishments.length > 0">
                 <p class="alert-info">You hadn't any establishment</p>
