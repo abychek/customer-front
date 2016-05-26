@@ -5,7 +5,7 @@ concreteWorker.controller('ConcreteWorkerCtrl', function ($scope, $http, $routeP
         name: ''
     };
     $http.get(
-        '/api/employer-api/workers/' + $routeParams.id,
+        '/api/employer-api/establishments/' + $routeParams.establishmentId + '/workers/' + $routeParams.workerId,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -21,4 +21,25 @@ concreteWorker.controller('ConcreteWorkerCtrl', function ($scope, $http, $routeP
             console.log(error);
         }
     });
+    $scope.fire = function () {
+        $http.patch(
+            '/api/employer-api/establishments/' + $routeParams.establishmentId + '/workers/' + $routeParams.workerId,
+            $.param({
+                status: 'fired'
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            $location.path('/establishments/' + $routeParams.establishmentId);
+        }, function error(error) {
+            if(error.status === 403) {
+                $location.path('/');
+            } else {
+                console.log(error);
+            }
+        });
+    };
 });

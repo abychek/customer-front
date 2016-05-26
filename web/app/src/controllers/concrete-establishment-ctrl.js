@@ -3,7 +3,7 @@ concreteEstablishmentCtrl.controller(
     'ConcreteEstablishmentsCtrl',
     function ($scope, $routeParams, $http, $location, localStorageService) {
         $scope.establishment = {
-            id: '',
+            id: $routeParams.id,
             title: '',
             description: '',
             specials: [],
@@ -11,7 +11,7 @@ concreteEstablishmentCtrl.controller(
             workers: []
         };
         $http.get(
-            '/api/employer-api/establishments/' + $routeParams.id,
+            '/api/employer-api/establishments/' + $scope.establishment.id,
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -29,7 +29,7 @@ concreteEstablishmentCtrl.controller(
             }
         }).then(function getSpecials() {
             $http.get(
-                '/api/customer-api/establishments/' + $routeParams.id + '/specials',
+                '/api/customer-api/establishments/' + $scope.establishment.id + '/specials',
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -42,7 +42,7 @@ concreteEstablishmentCtrl.controller(
             });
         }).then(function getWorkers() {
             $http.get(
-                '/api/employer-api/establishments/' + $routeParams.id + '/workers',
+                '/api/employer-api/establishments/' + $scope.establishment.id + '/workers',
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

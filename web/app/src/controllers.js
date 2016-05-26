@@ -101,7 +101,7 @@ concreteEstablishmentCtrl.controller(
     'ConcreteEstablishmentsCtrl',
     function ($scope, $routeParams, $http, $location, localStorageService) {
         $scope.establishment = {
-            id: '',
+            id: $routeParams.id,
             title: '',
             description: '',
             specials: [],
@@ -109,7 +109,7 @@ concreteEstablishmentCtrl.controller(
             workers: []
         };
         $http.get(
-            '/api/employer-api/establishments/' + $routeParams.id,
+            '/api/employer-api/establishments/' + $scope.establishment.id,
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -127,7 +127,7 @@ concreteEstablishmentCtrl.controller(
             }
         }).then(function getSpecials() {
             $http.get(
-                '/api/customer-api/establishments/' + $routeParams.id + '/specials',
+                '/api/customer-api/establishments/' + $scope.establishment.id + '/specials',
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -140,7 +140,7 @@ concreteEstablishmentCtrl.controller(
             });
         }).then(function getWorkers() {
             $http.get(
-                '/api/employer-api/establishments/' + $routeParams.id + '/workers',
+                '/api/employer-api/establishments/' + $scope.establishment.id + '/workers',
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -210,7 +210,7 @@ concreteWorker.controller('ConcreteWorkerCtrl', function ($scope, $http, $routeP
         name: ''
     };
     $http.get(
-        '/api/employer-api/workers/' + $routeParams.id,
+        '/api/employer-api/establishments/' + $routeParams.establishmentId + '/workers/' + $routeParams.workerId,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -226,6 +226,27 @@ concreteWorker.controller('ConcreteWorkerCtrl', function ($scope, $http, $routeP
             console.log(error);
         }
     });
+    $scope.fire = function () {
+        $http.patch(
+            '/api/employer-api/establishments/' + $routeParams.establishmentId + '/workers/' + $routeParams.workerId,
+            $.param({
+                status: 'fired'
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
+        ).then(function success(response) {
+            $location.path('/establishments/' + $routeParams.establishmentId);
+        }, function error(error) {
+            if(error.status === 403) {
+                $location.path('/');
+            } else {
+                console.log(error);
+            }
+        });
+    };
 });
 
 var establishments = angular.module('establishments-list-ctrl', []);

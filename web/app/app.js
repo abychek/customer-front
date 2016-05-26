@@ -45,7 +45,7 @@ app.config(['$routeProvider', '$locationProvider',
         }).when('/register/special', {
             templateUrl: './app/templates/register-special.tmpl.html',
             controller: 'RegisterSpecialCtrl'
-        }).when('/workers/:id', {
+        }).when('/establishments/:establishmentId/workers/:workerId', {
             templateUrl: './app/templates/concrete-worker.tmpl.html',
             controller: 'ConcreteWorkerCtrl'
         }).otherwise({
