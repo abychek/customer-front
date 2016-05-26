@@ -11,5 +11,6 @@ angular.module('manager', [
     'concrete-special-ctrl',
     'concrete-establishment-ctrl',
     'register-establishment-ctrl',
-    'register-special-ctrl'
+    'register-special-ctrl',
+    'concrete-worker-ctrl'
 ]);

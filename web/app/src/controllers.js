@@ -11,7 +11,8 @@ angular.module('manager', [
     'concrete-special-ctrl',
     'concrete-establishment-ctrl',
     'register-establishment-ctrl',
-    'register-special-ctrl'
+    'register-special-ctrl',
+    'concrete-worker-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
 authorizationService.service('authorizationService', function (localStorageService, $http) {
@@ -202,6 +203,31 @@ concreteSpecial.controller('ConcreteSpecialsCtrl', function ($scope, $http, $rou
         });
     };
 });
+var concreteWorker = angular.module('concrete-worker-ctrl', []);
+concreteWorker.controller('ConcreteWorkerCtrl', function ($scope, $http, $routeParams, $location) {
+    $scope.worker = {
+        id: '',
+        name: ''
+    };
+    $http.get(
+        '/api/employer-api/workers/' + $routeParams.id,
+        {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        }
+    ).then(function success(response) {
+        $scope.worker.id = response.data.id;
+        $scope.worker.name = response.data.name;
+    }, function error(error) {
+        if (error.status === 403) {
+            $location.path('/');
+        } else {
+            console.log(error);
+        }
+    });
+});
+
 var establishments = angular.module('establishments-list-ctrl', []);
 establishments.controller('EstablishmentsCtrl', function ($scope, $http) {
     $scope.establishments = [];
