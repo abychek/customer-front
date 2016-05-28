@@ -1,0 +1,21 @@
+<div class="container" ng-click="FreeUsersCtrl">
+    <div class="col-lg-8 col-lg-offset-2">
+        <table class="table">
+            <thead>
+            <tr>
+                <td><b>Name</b></td>
+                <td><b>Username</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in users">
+                <td>{{ user.name }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    <button ng-click="hire(user.id)" class="btn btn-default btn-sm">HIRE</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -57,5 +57,9 @@ concreteEstablishmentCtrl.controller(
         $scope.addSpecialPage = function (id) {
             localStorageService.set('establishment-id', id);
             $location.path('/register/special')
-        }
+        };
+        $scope.addWorkerPage = function (id) {
+            localStorageService.set('establishment-id', id);
+            $location.path('/users');
+        };
     });
