@@ -48,6 +48,9 @@ app.config(['$routeProvider', '$locationProvider',
         }).when('/establishments/:establishmentId/workers/:workerId', {
             templateUrl: './app/templates/concrete-worker.tmpl.html',
             controller: 'ConcreteWorkerCtrl'
+        }).when('/users', {
+            templateUrl: './app/templates/free-users.tmpl.html',
+            controller: 'FreeUsersCtrl'
         }).otherwise({
             redirectTo: '/'
         });
