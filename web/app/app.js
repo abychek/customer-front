@@ -15,7 +15,10 @@ app.config(function (localStorageServiceProvider) {
 
 app.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
-        $routeProvider.when('/auth/registration', {
+        $routeProvider.when('/', {
+            templateUrl: './app/templates/homepage.tmpl.html',
+            controller: 'HomepageCtrl'
+        }).when('/auth/registration', {
             templateUrl: './app/templates/registration.tmpl.html',
             controller: 'RegistrationCtrl'
         }).when('/auth/login', {

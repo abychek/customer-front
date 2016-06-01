@@ -13,7 +13,8 @@ angular.module('manager', [
     'register-establishment-ctrl',
     'register-special-ctrl',
     'concrete-worker-ctrl',
-    'free-users-ctrl'
+    'free-users-ctrl',
+    'homepage-ctrl'
 ]);
 var authorizationService = angular.module('authorization-service', []);
 authorizationService.service('authorizationService', function (localStorageService, $http) {
@@ -316,6 +317,10 @@ header.controller('HeaderCtrl', [
             $location.path('/profile');
         }
     }]);
+var homepage = angular.module('homepage-ctrl', []);
+homepage.controller('HomepageCtrl', function () {
+
+});
 var profile = angular.module('profile-ctrl', []);
 profile.controller('ProfileCtrl', function ($scope, $http, localStorageService) {
     var id = -1;
