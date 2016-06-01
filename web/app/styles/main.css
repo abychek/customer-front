@@ -10,10 +10,18 @@
     background-color: lightgrey;
 }
 
+.background-black {
+    background-color: darkslategray;
+}
+
 .border-right-cornflowerblue {
     border-right: solid cornflowerblue;
 }
 
 .border-top-red {
     border-top: solid red;
+}
+
+a {
+    color: #0f0f0f;
 }
